@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Mapping with Mapbox</title>
+		<!-- insert Mapbox GL library links here -->
+		<script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+		<link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet'/>
+		<link rel='stylesheet' href='styles.css'/>
+		<link rel='preconnect' href='https://fonts.gstatic.com'>
+		<link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap' rel='stylesheet'>
+		<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
+	</head>
+
+	<body>
+		<div class='container'>
+			<h1 class='heading'>Mapping with Mapbox</h1>
+			<h2>Choose a map to display:</h2>
+			<div class='buttonselect'>
+				<form action='#map1'>
+					<button id='btn1'>Racial and Social Equity Composite Index</button>
+				</form>
+				<form action='#map2'>
+					<button id='btn2'>Private and Public School Locations</button>
+				</form>
+			</div>
+
+			<div class='maps' id='map1'><h1 class='subheading'>Racial and Social Equity Composite Index</h1>
+				<div id='rsecimap'><div class='map-overlay' id='features'><h4><u>Racial and Social Equity Assessment Breakdown</u></h4>
+					<div id='pd'><br><h5>Hover over a census tract for more info</h5></div></div>
+					<div class='map-overlay' id='legend'></div></div>
+					<p>This is a chloropleth map showing the composite values of the Racial and Social Equity <br> index for each census tract in Seattle. This index was developed to identify which <br> neighborhoods consist of
+						relatively large proportions of disadvantaged residents</p>
+					<p>The composite index aggregates the following indexes:</p>
+					<ol>
+						<li> Race, English Language Learners, and Origins Index
+							<ul>
+								<li>Persons of color (weight: 1)</li>
+								<li>English language learner (weight: 0.5)</li>
+								<li>Foreign born (weight: 0.5)</li>
+							</ul>
+						</li>
+						<li> Socioeconomic Disadvantage Index
+							<ul>
+								<li>Income below 200% of poverty level</li>
+								<li>Educational attainment less than bachelor's degree</li>
+							</ul>
+						</li>
+						<li> Health Disadvantage Index
+							<ul>
+								<li>No leisure time or physical activity</li>
+								<li>Diagnosed diabetes</li>
+								<li>Obesity</li>
+								<li>Mental health not good</li>
+								<li>Asthma</li>
+								<li>Low life expectancy at birth</li>
+								<li>Disability</li>
+							</ul>
+						</li>
+					</ol>
+					<p>It is evident that north and south Seattle has greater numbers of neighborhoods <br> that have a high index while central Seattle has a much lower index</p>
+					<p>These areas, especially the south, has a much higher population of POC and the <br>other index values are much higher compared to other parts of Seattle</p>
+					<p>Data obtained from <a href="https://data-seattlecitygis.opendata.arcgis.com/">City of Seattle GeoData</a> based on <br>2011-2015 Five-Year American Community Survey Estimates, U.S. Census Bureau</p>
+			</div>
+			<div class='maps' id='map2'>
+					<h1 class='subheading'>Private and Public School Locations</h1>
+					<div id='schoolsmap'>
+						<div id='menu'></div>
+					</div>
+					<p>This is a map showing all private and public schools in Seattle.</p>
+					<p>It is evident that there is a cluster of private schools located in central Seattle</p>
+					<p>Public schools are more ubiquitous and there are more of them located in the city limits.</p>
+					<p>Layers for this map can be toggled by using the button on the top right of the screen.</p>
+					<p>Data obtained from <a href="https://data-seattlecitygis.opendata.arcgis.com/">City of Seattle GeoData</a> and icon obtained from <a href="https://www.iconfinder.com/">Iconfinder</a></p>
+			</div>
+		</div>
+		<script>
+
+		//toggle map display
+		$(document).ready(function() {
+		  $('#map1,#map2').hide();
+		  $('#btn1').click(function() {
+		     $('.maps').hide();
+		     $('#map1').toggle();
+		  });
+		  $('#btn2').click(function() {
+		     $('.maps').hide();
+		     $('#map2').toggle();
+		  });
+		});
+
+		//copy your access token here
+		mapboxgl.accessToken = 'pk.eyJ1IjoiY21hdHN1IiwiYSI6ImNraGNuNmw0YzAxajIyeXA1ZWE4aG80NDcifQ.3Y8_bQTBQeuNtqFL3OMBVw';
+
+		var rsecimap = new mapboxgl.Map({
+			container: 'rsecimap', // HTML container id
+			style: 'mapbox://styles/cmatsu/ckhvwl4j90qqu19p2cypdhwso', // style URL
+			center: [-122.283610, 47.613219], // starting position as [lng, lat]
+			zoom: 10 // starting zoom
+		});
+
+		rsecimap.on('load', function() {
+			//create a legend
+			var layers = ['<strong>Composite Index</strong>', '', 'Least Disadvantaged', 'Less Disadvantaged', 'Median', 'More Disadvantaged', 'Most Disadvantaged'];
+			var colors = ['', '', '#fbdea7', '#ffc533', '#f6a637', '#f28831', '#d1631a'];
+
+			for (i = 0; i < layers.length; i++) {
+					var layer = layers[i];
+					var color = colors[i];
+					var item = document.createElement('div');
+					var key = document.createElement('span');
+					key.className = 'legend-key';
+					key.style.backgroundColor = color;
+
+					var value = document.createElement('span');
+					value.innerHTML = layer;
+					item.appendChild(key);
+					item.appendChild(value);
+					legend.appendChild(item);
+			}
+
+			//hover over census tracts to get more info
+			rsecimap.on('mousemove', function(e) {
+				var tracts = rsecimap.queryRenderedFeatures(e.point, {
+					layers: ['rseci']
+				});
+
+				if (tracts.length > 0) {
+					document.getElementById('pd').innerHTML = '<h6>Health Disadvantage:</h6><h5> ' + tracts[0].properties.HEALTH_QUINTILE +
+					'</h5><h6>Race/ELL/Origins:</h6><h5> ' + tracts[0].properties.RACE_ELL_ORIGINS_QUINTILE +
+					'</h5><h6>Socioeconomic Disadvantage:</h6><h5> ' + tracts[0].properties.SOCIOECONOMIC_QUINTILE + '</h5>';
+				} else {
+					document.getElementById('pd').innerHTML = '<br><h5>Hover over a census tract for more info</h5>';
+				}
+			});
+		});
+
+		//private and public schools map
+		var schoolsmap = new mapboxgl.Map({
+			container: 'schoolsmap', // container id
+			style: 'mapbox://styles/cmatsu/ckhvcxbmi09mn19mly1du275p', // stylesheet location
+			center: [-122.335167, 47.608013],
+			zoom: 10
+		});
+
+		schoolsmap.on('click', function (e) {
+			var features = schoolsmap.queryRenderedFeatures(e.point, {
+				layers: ['private', 'public'] // replace this with the name of the layer
+			});
+
+			if (!features.length) {
+				return;
+			}
+
+			var feature = features[0];
+
+			var popup = new mapboxgl.Popup({ offset: [0, -15] })
+				.setLngLat(feature.geometry.coordinates)
+				.setHTML(
+					'<h6>Name:</h6><h5> ' +
+						feature.properties.NAME +
+						'</h5><h6>Grade:</h6><h5> ' +
+							feature.properties.GRADE +
+						'</h5><h6>Address:</h6><h5> ' +
+						feature.properties.ADDRESS +
+						'</h5><h6>Zipcode:</h6><h5> ' +
+						feature.properties.ZIP +
+						'</h5>'
+				)
+				.setLngLat(feature.geometry.coordinates)
+				.addTo(schoolsmap);
+		});
+		var toggleableLayerIds = ['private', 'public'];
+
+		for (var i = 0; i < toggleableLayerIds.length; i++) {
+			var id = toggleableLayerIds[i];
+
+			var link = document.createElement('a');
+			link.href = '#';
+			link.className = 'active';
+			link.textContent = id;
+
+			link.onclick = function(e) {
+				var clickedLayer = this.textContent;
+				e.preventDefault();
+				e.stopPropagation();
+
+				var visibility = schoolsmap.getLayoutProperty(clickedLayer, 'visibility');
+
+				if (this.className === 'active') {
+					schoolsmap.setLayoutProperty(clickedLayer, 'visibility', 'none');
+					this.className = '';
+				} else {
+					this.className = 'active';
+					schoolsmap.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+				}
+			};
+
+			var layers = document.getElementById('menu');
+
+			layers.appendChild(link);
+		}
+		</script>
+
+		<footer>
+		  <p>Created by Chiaki Matsuno 2020</p>
+		</footer>
+
+	</body>
+
+</html>

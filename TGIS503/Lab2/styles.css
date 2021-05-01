@@ -1,0 +1,25 @@
+body {
+  font-family: sans-serif;
+  max-width: 90%;
+  padding: 10%;
+  margin: auto;
+  background-color: #090909;
+  color:#ffffff;
+}
+#legend {
+  line-height: 0px;
+  background: white;
+  opacity: 0.8;
+  padding:5px 25px 5px 25px;
+  border-radius: 5px;
+}
+#legend li{
+  margin: 0 0 0 -35;
+  padding: 0px;
+  font-size: 13px;
+  text-align: left;
+  color:  #090909;
+}
+h3 {
+  color:  #090909;
+}

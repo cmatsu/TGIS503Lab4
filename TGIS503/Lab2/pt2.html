@@ -1,0 +1,147 @@
+<html>
+<head>
+	<title>Median Income by Census Tracts and Medical Facilities in King County</title>
+	<!-- the Leaflet CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/>
+	<link rel="stylesheet" href="styles.css"/>
+	<!-- the Leaflet JavaScript library -->
+	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src= "https://cdn.jsdelivr.net/npm/leaflet-legend@1.0.2/leaflet-legend.min.js"></script>
+
+</head>
+
+<body>
+	<h1>Median Income by Census Tracts and Medical Facility Access in King County</h1>
+	<!-- code where we create and name the container that holds the map -->
+	<div id="map" style="height: 800px"></div>
+	<p>The above map is based on the 2010 American Community Survey data about the median household incomes of census tracts in King County and data about the location of medical facilities in King County. While there is no strong correlation, it seems that there is a high concentration of medical facilities around census tracts that have a higher median income.</p>
+	<div id="legend">
+			<h3><center>Median Income Levels</center></h3>
+			<ul style="list-style-type:none">
+				<li>
+					<svg width="30" height="30">
+						<rect  x="5" y="11" width="18" height="18" stroke="#000000" fill="#e3dded" fill-opacity="0.9"/>
+					</svg>
+					<text>$0-$50000</text>
+				</li>
+				<li>
+					<svg width="30" height="30">
+						<rect  x="5" y="11" width="18" height="18" stroke="#000000" fill="#a6b9de" fill-opacity="0.9"/>
+					</svg>
+					<text>$50000-$100000</text>
+				</li>
+				<li>
+					<svg width="30" height="30">
+						<rect  x="5" y="11" width="18" height="18" stroke="#000000" fill="#6399bf" fill-opacity="0.9"/>
+					</svg>
+					<text>$100000-$150000</text>
+				</li>
+				<li>
+					<svg width="30" height="30">
+						<rect  x="5" y="11" width="18" height="18" stroke="#000000" fill="#1e79a8" fill-opacity="0.9"/>
+					</svg>
+					<text>$150000-$200000</text>
+				</li>
+				<li>
+					<svg width="30" height="30">
+						<rect  x="5" y="11" width="18" height="18" stroke="#000000" fill="#044e7a" fill-opacity="0.9"/>
+					</svg>
+					<text>$200000+</text>
+				</li>
+			</ul>
+		</div>
+	<!-- code where we build the map and its functionality -->
+	<script>
+	var mymap = L.map('map').setView(new L.LatLng(47.4664913, -121.8178891), 10);
+	mymap.createPane('labels');
+	mymap.getPane('labels').style.zIndex = 650;
+	mymap.getPane('labels').style.pointerEvents = 'none';
+
+	mymap.attributionControl.addAttribution('Icon made by &copy; AIGA from <a href="https://www.iconfinder.com/">www.iconfinder.com</a>');
+	mymap.attributionControl.addAttribution('Data from &copy; <a href="https://www.census.gov/programs-surveys/acs">2010 American Community Survey</a>');
+	mymap.attributionControl.addAttribution('&copy; <a href="https://gis-kingcounty.opendata.arcgis.com/">King County GIS Open Data</a>');
+	var cartodbAttribution = 'Basemap provided by &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attribution">CARTO</a>';
+
+	var positronLabels = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
+		attribution: cartodbAttribution,
+		pane: 'labels'
+	}).addTo(mymap);
+	var positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png', {
+	}).addTo(mymap);
+		// load GeoJSON from an external file and add it to the map
+		function getColor(i) {
+		    return i > 200000 ? '#044e7a' :
+		           i > 150000  ? '#1e79a8' :
+		           i > 100000  ? '#6399bf' :
+		           i > 50000  ? '#a6b9de' :
+		                      '#e3dded';
+		}
+
+		function style(feature) {
+    return {
+		        fillColor: getColor(feature.properties.E19113069),
+		        weight: 2,
+		        opacity: 1,
+		        color: '#edf9ff',
+		        dashArray: '4',
+		        fillOpacity: 0.7
+		    };
+		}
+		function highlightFeature(e) {
+		    var layer = e.target;
+		    layer.setStyle({
+		        weight: 4,
+		        color: '#c0c9cf',
+		        dashArray: '4'
+
+		    });
+				if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+		        layer.bringToFront();
+		    }
+		}
+		var geojson;
+		function resetHighlight(e) {
+		    geojson.resetStyle(e.target);
+		}
+		function panToFeature(e) {
+			var bounds = e.target.getBounds();
+		  mymap.panTo(bounds.getCenter());
+		}
+		function onEachFeature(feature, layer) {
+		    layer.on({
+		        mouseover: highlightFeature,
+		        mouseout: resetHighlight,
+		        click: panToFeature
+		    });
+		}
+		$.getJSON("income.geojson",function(data){
+		    geojson = L.geoJson(data, {
+					style: style,
+					onEachFeature: onEachFeature
+				}).addTo(mymap);
+		});
+		var facilities = L.icon({
+		    iconUrl: 'icon.png',
+				iconSize: [20, 20],
+		    iconAnchor: [0, 0],
+		    popupAnchor: [0, 0]
+		});
+
+		$.getJSON("medical.geojson",function(data){
+				L.geoJson(data, {
+					pointToLayer: function(feature, latlng){
+					        var marker = L.marker(latlng, {icon: facilities});
+									marker.bindPopup("Name: " + feature.properties.NAME + "<br>Address: " + feature.properties.ADDRESS + "<br>Zipcode: " + feature.properties.ZIPCODE);
+									return marker;
+								}
+				}).addTo(mymap);
+		});
+		var Legend =  new L.Control.Legend({
+			position: 'bottomright',
+		});
+		mymap.addControl(Legend);
+		$(".legend-container").append( $("#legend") );
+	</script>
+</body>
+</html>

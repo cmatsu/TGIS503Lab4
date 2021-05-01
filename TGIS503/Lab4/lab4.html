@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Racial and Social Equity in Seattle</title>
+		<!-- insert Mapbox GL library links here -->
+		<script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+		<link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet'/>
+		<link rel='stylesheet' href='styles.css'/>
+		<link rel='preconnect' href='https://fonts.gstatic.com'>
+		<link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap' rel='stylesheet'>
+		<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes"></script>
+  </head>
+
+	<body>
+		<div class='container'>
+			<div class='side'>
+				<div id='buffer'></div>
+				<div class='sidebar'>
+					<a href="#intro">Introduction</a>
+				<ul id="accordion">
+					<li><a href="#rsecindex">Racial and Social Equity Composite Index</a></li>
+					<ul>
+						<li><a href="#index">What is it?</a></li>
+						<li><a href="#rseci">Map Assessment</a></li>
+					</ul>
+					<li><a href="#sociofactors">Socioeconomic Factors</a></li>
+					<ul><li><a href="#socio">What's the significance?</a></li>
+						<li><a href="#race">Racial Demographics</a></li>
+						<li><a href="#income">Income and Poverty</a></li>
+					</ul>
+				</ul>
+				<a href="#conclusion">Conclusion</a>
+				</div>
+			</div>
+
+		<div class="main">
+			<h1 class='heading'>Racial and Social Equity in Seattle</h1>
+				<div class="subcontainer">
+					<h2 class='subheading' id='intro'>Introduction</h2>
+						<div class="desc">
+							<p>Equity mapping is a way of using GIS technology to make connections between areas of opportunity
+								(places with good job availability, good access to education and healthcare etc.) and disadvantaged communities.</p>
+								<p>Usually data from the Census and American Community Survey are used to develop an index that makes an assessment on the census tract level.</p>
+							<h3>Why is this important?</h3>
+							<p>This tool allows local leaders to make informed decisions about investment and development opportunities as it helps visualize which
+								communities are the most disadvantaged and require the most immediate attention for improvements.</p>
+							<p>One example of equity mapping is <b>The Racial and Social Equity Composite Index for Seattle</b></p>
+						</div>
+
+						<h2 class='subheading' id='index'>Racial and Social Equity Composite Index</h2>
+
+					<div class='desc'>
+						<h3>What is this index?</h3>
+						<p> <a href="https://data-seattlecitygis.opendata.arcgis.com/datasets/225a4c2c50e94f2cb548a046217f49f7_0">
+							The Racial and Social Equity Composite index</a> was
+							developed to identify which neighborhoods consist of
+						relatively large proportions of disadvantaged residents, based on an
+						assessment of racial and ethnic demographics, as well as socioeconomic and health disadvantages. </p>
+ 						<p>It references data including the 2011-2015 Five-Year American Community Survey Estimates by the U.S.
+							Census Bureau, and Centers for Disease Control’s Behavioral Risk Factor
+							Surveillance System (BRFSS) among others.</p>
+							<h3>How is it determined?</h3>
+						<p>	The following three indexes were created to determine the level of disadvantage,
+							and subsequently aggregated to produce a composite index score: </p>
+
+          <div class='container'>
+            <ol>
+  						<li> <b>Race, English Language Learners, and Origins Index</b>
+  							<ul>
+  								<li>Persons of color (weight: 1)</li>
+  								<li>English language learner (weight: 0.5)</li>
+  								<li>Foreign born (weight: 0.5)</li>
+  							</ul>
+  						</li>
+  						<li> <b>Socioeconomic Disadvantage Index</b>
+  							<ul>
+  								<li>Income below 200% of poverty level</li>
+  								<li>Educational attainment less than bachelor's degree</li>
+  							</ul>
+  						</li>
+  						<li> <b>Health Disadvantage Index</b>
+  							<ul>
+  								<li>No leisure time or physical activity</li>
+  								<li>Diagnosed diabetes</li>
+  								<li>Obesity</li>
+  								<li>Mental health not good</li>
+  								<li>Asthma</li>
+  								<li>Low life expectancy at birth</li>
+  								<li>Disability</li>
+  							</ul>
+  						</li>
+  					</ol></div>
+					</div>
+          <h2 id='rseci'>Racial and Social Equity Assessment of Seattle Census Tracts</h2>
+					<div id='rsecimap'><div class='map-overlay' id='rsecifeatures'>
+						<!-- <h4><u>Racial and Social Equity Assessment Breakdown</u></h4> -->
+
+						<div id='getrseci'><br><br><h5>Hover over a census tract for more info</h5></div></div>
+						<div class='map-overlay' id='rsecilegend'></div>
+					</div>
+						<div class="desc">
+              <p>The map above shows the Racial and Social Equity Composite Index values
+							 for each census tract in Seattle. Each census tract can be hovered over
+							 to view each of the index scores in the three categories before they are aggregated.</p>
+							 <h3>What does this tell us?</h3>
+							<p> It is evident that North and South Seattle have greater numbers of neighborhoods that have a high index while Central Seattle has a much lower index.</p>
+		 					<p>These areas, especially the South, have a much higher population of POC and the other index values are much higher compared to other parts of Seattle.</p>
+						</div>
+
+						<h2 class='subheading' id='socio'>Socioeconomic Factors</h2>
+							<div class="desc">
+								<p> In the Racial and Social Equity Composite Index, the factors of
+									racial and ethnic demographics and poverty levels stood out noticably
+									as the most disadvantaged census tracts were consistently disadvantaged in terms of race and socioeconomics.</p>
+									<p>The following maps were made to show which areas had the highest percentage of POC
+										and the highest levels of poverty.</p>
+									<p>The following assessments were made based on the <a href="https://data-seattlecitygis.opendata.arcgis.com/datasets/51f795b05d284f3e82902de8de06939e_1">
+										2011-2015 Five-Year American Community Survey Estimates by the U.S. Census Bureau.</a></p>
+							</div>
+							<h2 id='race'>Racial and Ethnic Demographics of Seattle Census Tracts</h2>
+							<div id='racemap'><div class='map-overlay' id='racefeatures'>
+								<!-- <h4><u>Racial Demographic Breakdown</u></h4> -->
+								<div id='getrace'><br><br><h5>Hover over a census tract for more info</h5></div>
+								<div class="race-container"><canvas id="racechart"></canvas ></div></div>
+								<div class='map-overlay' id='racelegend'></div><div class='map-overlay' id='racebar'></div>
+							</div>
+							<div class="desc">
+	              <p>The map above shows the percentage of POC population for each census tract in Seattle.
+									Each census tract can be hovered over to view the percentage and a chart showing
+									the overall racial and ethnic demographics.</p>
+									<h3>What does this tell us?</h3>
+									<p>There are more POC living towards the south of Seattle, with a dominant Asian
+										and Black demographic in tracts with extremely high POC presence. For instance, in Census Tract 110.92
+									where 92.2% of the population are POC, with a vast majority of the population consisting of Asian and Black identities.</p>
+							</div>
+
+							<h2 id='income'>Median Household Income and Poverty Levels of Seattle Census Tracts</h2>
+							<div id='incomemap'><div class='map-overlay' id='incomefeatures'>
+								<div id='getincome'><br><br><h5>Hover over a census tract for more info</h5></div>
+								<div class="income-container"><canvas id="incomechart"></canvas></div></div>
+								<div class='map-overlay' id='incomelegend'></div>
+								<div class='map-overlay' id='povertylegend'></div>
+								<div class='map-overlay' id='incomebar'></div>
+								<div class='map-overlay' id='toggle'></div>
+							</div>
+
+							<div class="desc">
+								<p>The map above has two layers. The default layer shows the median household income per census tract in Seattle.
+									Each census tract can be hovered over to view the income and a chart showing the population per household income level.
+								</p><p>The second layer shows the percentage of the population in poverty per census tract in Seattle.
+								 Each census tract can be hovered over to view the percentage, as well as other details regarding poverty statistics.</p>
+								 <h3>What does this tell us?</h3>
+								 <p>Comparing the two layers, it is evident that South Seattle has, on average,
+									 lower median household incomes and higher percentages of the population in poverty.</p>
+								<p>Census Tract 110.01 in particular has an extremely high percentage of poverty at 44.3% of the population living in poverty,
+										 with one of the lowest median household incomes of $24725.</p>
+							</div>
+
+
+          <h2 class="subheading" id='conclusion'>Conclusion</h2>
+					<div class='desc'>
+						<p>It can be concluded that there is a concentration of disadvantaged census tracts in the south
+							and more census tracts in that region have extreme values for both racial and economic factors.
+							There is a much greater percentage of POC in the total population, and a much higher rate of
+							poverty and lower median household incomes in these region.</p>
+						<p>However, it is also important to note that the data gathered around University District has a similar pattern to
+								the disadvantaged areas in the south but is not necessarily
+								reflective of actual poverty as the area houses students, many of whom may not be financially independent yet.</p>
+						<h3>What is done well?</h3>
+						<p>The use of a composite index to aggregate different types of disadvantage is excellent because
+							doing so provides a well rounded assessment which allows for comparison between disadvantaged
+							census tracts to assess which factors require more attention for those areas. </p>
+						<h3>What are the issues?</h3>
+						<p>While this assessment provides a general idea of the level of disadvantage on a census tract level,
+							it does not reflect population densities, nor does it show variation within census tracts.
+							Therefore, extremely disadvantaged neighborhoods are averaged out if the census tract as a whole is not so disadvantaged.</p>
+					</div>
+					<footer>
+								<p>Created by Chiaki Matsuno 2020</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+			<script>
+			//sidebar menu
+			$("#accordion > li").click(function(){
+
+				if(false == $(this).next().is(':visible')) {
+					$('#accordion > ul').slideUp(300);
+				}
+				$(this).next().slideToggle(300);
+			});
+
+				mapboxgl.accessToken = 'pk.eyJ1IjoiY21hdHN1IiwiYSI6ImNraGNuNmw0YzAxajIyeXA1ZWE4aG80NDcifQ.3Y8_bQTBQeuNtqFL3OMBVw';
+				var rsecimap = new mapboxgl.Map({
+					container: 'rsecimap', // HTML container id
+					style: 'mapbox://styles/cmatsu/ckhvwl4j90qqu19p2cypdhwso', // style URL
+					center: [-122.283610, 47.613219], // starting position as [lng, lat]
+					zoom: 9.5, // starting zoom
+					minzoom: 9.5,
+					maxZoom: 13
+				});
+				rsecimap.setMaxBounds([[-122.5615102753933,47.49292476159579],[-121.97748153180596,47.73685399242751]]);
+				rsecimap.on('load', function() {
+					//create a legend
+					var layers = ['<strong>Composite Index</strong>', '', 'Least Disadvantaged',  'Less Disadvantaged', 'Median', 'More Disadvantaged', 'Most Disadvantaged'];
+					var colors = ['', '', '#fbdea7', '#ffc533', '#f6a637', '#f28831', '#d1631a'];
+
+					for (i = 0; i < layers.length; i++) {
+							var layer = layers[i];
+							var color = colors[i];
+							var item = document.createElement('div');
+							var key = document.createElement('span');
+							key.className = 'legend-key';
+							key.style.backgroundColor = color;
+
+							var value = document.createElement('span');
+							value.innerHTML = layer;
+							item.appendChild(key);
+							item.appendChild(value);
+							rsecilegend.appendChild(item);
+					}
+
+					//hover over census tracts to get more info
+					rsecimap.on('mousemove', function(e) {
+						var tracts = rsecimap.queryRenderedFeatures(e.point, {
+							layers: ['rseci']
+						});
+
+						if (tracts.length > 0) {
+							document.getElementById('getrseci').innerHTML = '<p></p><h5><b>' + tracts[0].properties.NAMELSAD10 + '</b></h5><h6>Health Disadvantage:</h6><h5> ' + tracts[0].properties.HEALTH_QUINTILE +
+							'</h5><h6>Race/ELL/Origins:</h6><h5> ' + tracts[0].properties.RACE_ELL_ORIGINS_QUINTILE +
+							'</h5><h6>Socioeconomic Disadvantage:</h6><h5> ' + tracts[0].properties.SOCIOECONOMIC_QUINTILE + '</h5>';
+              $('#rsecifeatures').css('height', '210px');
+            } else {
+							document.getElementById('getrseci').innerHTML = '<br><br><h5>Hover over a census tract for more info</h5>';
+              $('#rsecifeatures').css('height', '120px');
+            }
+					});
+				});
+
+        var incomemap = new mapboxgl.Map({
+          container: 'incomemap', // HTML container id
+          style: 'mapbox://styles/cmatsu/ckigpxynn0nid19mgb9dt6fwl', // style URL
+          center: [-122.283610, 47.613219], // starting position as [lng, lat]
+          zoom: 9.5, // starting zoom
+          minzoom: 9.5,
+          maxZoom: 13
+        });
+        incomemap.setMaxBounds([[-122.5615102753933,47.49292476159579],[-121.97748153180596,47.73685399242751]]);
+        incomemap.on('load', function() {
+          //create a legend for income
+          var inclyr = ['<strong>Household Income ($)</strong>', '', '&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;10521', '', '', '', '', '&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;168425'];
+          var colors = ['', '', '', '', '', '', '', ''];
+          for (i = 0; i < inclyr.length; i++) {
+              var layer = inclyr[i];
+              var color = colors[i];
+              var item = document.createElement('div');
+              var key = document.createElement('span');
+              key.className = 'legend-key';
+              key.style.backgroundColor = color;
+              var value = document.createElement('span');
+              value.innerHTML = layer;
+              item.appendChild(key);
+              item.appendChild(value);
+              incomelegend.appendChild(item);
+          }
+					//create a legend for poverty
+					var layers = ['<strong>Population in Poverty (%)</strong>', '', '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;1.3', '', '', '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;30', '', '', '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;58.7'];
+					var color2 = ['', '', '', '', '', '', '','',  ''];
+					for (i = 0; i < layers.length; i++) {
+              var layer = layers[i];
+              var color = color2[i];
+              var item = document.createElement('div');
+              var key = document.createElement('span');
+              key.className = 'legend-key';
+              key.style.backgroundColor = color;
+              var value = document.createElement('span');
+              value.innerHTML = layer;
+              item.appendChild(key);
+              item.appendChild(value);
+              povertylegend.appendChild(item);
+          }
+
+
+          //hover over census tracts to get more info
+          incomemap.on('mousemove', function(e) {
+            var tracts = incomemap.queryRenderedFeatures(e.point, {
+              layers: ['medinc']
+            });
+						var povlvls = incomemap.queryRenderedFeatures(e.point, {
+              layers: ['povlvl']
+            });
+						var x = document.getElementById('toggle').querySelectorAll('a.active');
+						if(x[0].innerHTML == 'Household Income') {
+							$('#incomebar').css('background','linear-gradient(to bottom, #fffffa 6.2%, #e8fdbf 26.3%, #a6c468 46.4%, #5e7b23 72.8%, #374e09 99.1%)');
+						  $('#incomelegend').show();
+							$('#povertylegend').hide();
+						} else {
+							$('#incomebar').css('background','linear-gradient(to bottom, #faeb9e, #e34326 50%, #774304)');
+							$('#povertylegend').show();
+							$('#incomelegend').hide();
+						}
+            if (tracts.length > 0) {
+              document.getElementById('getincome').innerHTML = '<br><h5><b>' + tracts[0].properties.NAMELSAD10 + '</b></h5><h5><b>Median Household Income:</b> $' + tracts[0].properties.MEDIAN_HH_INC_PAST_12MO_DOLLAR + '</h5>';
+              var tier1 = tracts[0].properties.HH_INCOME_LESS_THAN_10_000;
+              var tier2 = tracts[0].properties.HH_INCOME_10_000_TO_14_999;
+              var tier3 = tracts[0].properties.HH_INCOME_15_000_TO_24_999;
+              var tier4 = tracts[0].properties.HH_INCOME_25_000_TO_34_999;
+              var tier5 = tracts[0].properties.HH_INCOME_35_000_TO_49_999;
+              var tier6 = tracts[0].properties.HH_INCOME_50_000_TO_74_999;
+              var tier7 = tracts[0].properties.HH_INCOME_75_000_TO_99_999;
+              var tier8 = tracts[0].properties.HH_INCOME_100_000_TO_149_999;
+              var tier9 = tracts[0].properties.HH_INCOME_150_000_TO_199_999;
+              var tier10 = tracts[0].properties.HH_INCOME_200_000_OR_MORE;
+              new Chart(document.getElementById("incomechart"), {
+                type: 'bar',
+                data: {
+                  labels: ["< 10,000", "10,000 - 14,999", "15,000 - 24,999",
+                  "25,000 - 34,999", "35,000 - 49,999", "50,000 - 74,999", "75,000 - 99,999",
+                  "100,000 - 149,999","150,000 - 199,999","> 200,000"],
+                  datasets: [
+                    {
+                      label: "Income ($)",
+                      data: [tier1, tier2, tier3, tier4, tier5, tier6, tier7, tier8, tier9, tier10]
+                    }
+                  ]
+                },
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  legend: {
+                    display: false
+                  },
+                  title: {
+                    display: true,
+                    text: 'Population per Household Income Level'
+                  },
+                  plugins: {
+                    colorschemes: {
+                      scheme: 'brewer.Accent8'
+                    }
+                  },
+                  scales: {
+                    xAxes: [{
+                        ticks: {
+                            autoSkip: false,
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }]
+                  }
+                }
+            });
+              $('#incomechart').show();
+              $('#incomefeatures').css('height', '330px');
+            } else if (povlvls.length > 0) {
+							document.getElementById('getincome').innerHTML = '<br><h5><b>'
+							+ povlvls[0].properties.NAMELSAD10 + '</b></h5><h5><b>% of Population in Poverty: </b>'
+							+ povlvls[0].properties.PCT_POPULATION_UNDER_POVERTY + '</h5><h5><b>% of Families in Poverty: </b>'
+							+ povlvls[0].properties.PCT_ALL_FAMILY_UNDER_POVERTY  + '</h5><h5><b>% of Pop. Below 200% Poverty: </b>'
+							+ povlvls[0].properties.PCT_POP_200_PCT_BELOW_POVERTY  + '</h5><h5><b>Recognized Pop. in Poverty: </b>'
+							+ povlvls[0].properties.POP_POVERTY_STATUS_DETERMINED + '';
+							$('#incomechart').hide();
+						  $('#incomefeatures').css('height', '170px');
+ 						} else {
+              document.getElementById('getincome').innerHTML = '<br><br><h5>Hover over a census tract for more info</h5>';
+              $('#incomechart').hide();
+              $('#incomefeatures').css('height', '120px');
+						}
+          });
+        });
+
+				var racemap = new mapboxgl.Map({
+					container: 'racemap', // HTML container id
+					style: 'mapbox://styles/cmatsu/ckif7cml04cfq19mlca8hyzqe', // style URL
+					center: [-122.283610, 47.613219], // starting position as [lng, lat]
+					zoom: 9.5, // starting zoom
+					minzoom: 9.5,
+					maxZoom: 13
+				});
+				racemap.setMaxBounds([[-122.5615102753933,47.49292476159579],[-121.97748153180596,47.73685399242751]]);
+				racemap.on('load', function() {
+					//create a legend
+					var layers = ['<strong>POC Population (%)</strong>', '', '&emsp;&emsp;&emsp;&emsp;&ensp;10.9', '', '', '', '', '&emsp;&emsp;&emsp;&emsp;&ensp;92.2'];
+					var colors = ['', '', '', '', '', '', '', ''];
+					for (i = 0; i < layers.length; i++) {
+							var layer = layers[i];
+							var color = colors[i];
+							var item = document.createElement('div');
+							var key = document.createElement('span');
+							key.className = 'legend-key';
+							key.style.backgroundColor = color;
+
+							var value = document.createElement('span');
+							value.innerHTML = layer;
+							item.appendChild(key);
+							item.appendChild(value);
+							racelegend.appendChild(item);
+					}
+
+					//hover over census tracts to get more info
+					racemap.on('mousemove', function(e) {
+						var tracts = racemap.queryRenderedFeatures(e.point, {
+							layers: ['pctpoc']
+						});
+						if (tracts.length > 0) {
+							document.getElementById('getrace').innerHTML = '<br><h5><b>' + tracts[0].properties.NAMELSAD10 + '</b><h5><b>% of Population that are POC:</b> ' + tracts[0].properties.PCT_PERSON_OF_COLOR + '</h5>';
+              var white = tracts[0].properties.NOT_HISPANIC_LATINO_WHITE_ONE;
+              var black = tracts[0].properties.NOTHISPLATINO_BLKAFRCNAMER_ONE;
+              var native = tracts[0].properties.NOTHISPLATINO_AMINDALSKNTV_ONE;
+              var asian = tracts[0].properties.NOTHISPLATINO_ASIAN_ONE;
+              var pacific = tracts[0].properties.NOTHISPLATINO_NHAWAIIOTHPI_ONE;
+              var hispanic = tracts[0].properties.HISPANIC_OR_LATINO_OF_ANY_RACE;
+              var mixed = tracts[0].properties.NOTHISPLATINO_TWO_OR_MORE_RACE;
+              var other = tracts[0].properties.NOTHISPLATINO_SOME_OTHER_ONE;
+							new Chart(document.getElementById("racechart"), {
+						    type: 'doughnut',
+						    data: {
+						      labels: ["White", "Black", "Native", "Asian", "Pacific Islander", "Hispanic/Latino", "Mixed Race", "Other"],
+						      datasets: [
+						        {
+						          label: "Population",
+						          data: [white, black, native, asian, pacific, hispanic, mixed, other]
+						        }
+						      ]
+						    },
+						    options: {
+                  responsive: true,
+									legend: {
+				            display: true,
+										position: 'bottom'
+				        	},
+                  plugins: {
+                    colorschemes: {
+                      scheme: 'tableau.ClassicCyclic13'
+                    }
+                  }
+						    }
+						});
+              $('#racechart').show();
+              $('#racefeatures').css('height', '320px');
+						} else {
+
+							document.getElementById('getrace').innerHTML = '<br><br><h5>Hover over a census tract for more info</h5>';
+							$('#racechart').hide();
+              $('#racefeatures').css('height', '120px');
+						}
+					});
+				});
+
+				// enumerate ids of the layers
+					var toggleableLayerIds = ['medinc', 'povlvl'];
+					var layerNames = ['Household Income', 'Poverty Level'];
+					var toggleSwitch = false;
+						// set up the corresponding toggle button for each layer
+						for (var i = 0; i < toggleableLayerIds.length; i++) {
+								var id = toggleableLayerIds[i];
+
+								var link = document.createElement('a');
+								link.href = '#';
+								if (id == 'medinc') {
+									link.className = 'active';
+								} else {
+									link.className = '';
+								}
+								link.textContent = layerNames[i];
+								link.value = id;
+
+								link.onclick = function(e) {
+										var clickedLayer = this.value;
+										e.preventDefault();
+										e.stopPropagation();
+										for (var j = 0; j < toggleableLayerIds.length; j++) {
+												if (clickedLayer === toggleableLayerIds[j]) {
+													layers.children[j].className = 'active';
+													incomemap.setLayoutProperty(toggleableLayerIds[j], 'visibility', 'visible');
+
+												}
+												else {
+													layers.children[j].className = '';
+													incomemap.setLayoutProperty(toggleableLayerIds[j], 'visibility', 'none');
+												}
+										}
+								};
+								var layers = document.getElementById('toggle');
+								layers.appendChild(link);
+						}
+
+			</script>
+
+
+
+
+	</body>
+
+</html>

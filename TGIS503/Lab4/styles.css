@@ -1,0 +1,388 @@
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  text-align: center;
+  background-color: #ffefbf;
+  color: #594c3f;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.heading, .subheading, .desc {
+  border-radius: 25px;
+  padding: 30px;
+}
+
+.heading {
+  background-color: #a6d9ff;
+  box-shadow: 10px 11px #1a77ba;
+  color: #1a77ba;
+  margin-top: 20px;
+}
+
+.subheading:first-child {
+  margin-top: 20px;
+}
+
+.subheading h2{
+  font-size: 28pt !important;
+}
+
+.subheading {
+  background-color: #ffc533;
+  box-shadow: 10px 11px #f28831;
+  margin-top: 80px;
+  margin-bottom:40px;
+}
+
+.desc {
+  color: #594c3f;
+  background-color: #ffffff;
+  box-shadow: 10px 11px #dbd5c1;
+  max-width: 50vw;
+}
+
+.desc:last-child {
+  margin-bottom: 80px;
+}
+
+h1 {
+  font-size: 30pt;
+
+}
+
+h2 {
+  font-size: 24pt;
+  color: #594c3f;
+  margin-top: 60px;
+}
+
+h3 {
+  font-size: 18pt;
+  color: #594c3f;
+  margin-bottom: 14pt;
+}
+
+p {
+  font-size: 14pt;
+  font-weight: 300;
+  line-height: 24pt;
+  margin-bottom: 12pt;
+}
+
+h4 {
+  font-size: 13pt;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-weight: normal;
+}
+
+h5, h6{
+  font-size: 12pt;
+  margin-top: 6px;
+  margin-bottom: 0px;
+}
+
+h5 {
+  font-weight: normal;
+}
+
+h6 {
+ font-weight: bold;
+}
+
+ol, li {
+  font-size: 14pt;
+}
+
+li {
+  text-align: left;
+  margin:8pt;
+}
+
+.main {
+  width: 70vw;
+  margin-left: 20px;
+  font-size: 28px;
+  padding: 0px 10px;
+}
+.side {
+  max-width: 360px;
+}
+
+#buffer {
+  height:180px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+.subcontainer {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.subcontainer a {
+  text-decoration: none;
+  color: #2196F3;
+}
+
+.subcontainer a:visited {
+  color: #2196F3;
+}
+
+.intro {
+  background-color: #red;
+}
+
+#rsecimap, #racemap, #incomemap {
+  position: relative;
+  height: 85vh; width: 60vw;
+  border-radius: 15px;
+  margin-bottom:60px;
+}
+
+.map-overlay {
+  position: absolute;
+  z-index: 998;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  font-family: 'Montserrat', sans-serif;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+#toggle, #rsecifeatures, #racefeatures, #incomefeatures {
+  top: 10px;
+  padding-top: 5px;
+  margin-top: 20px;
+}
+
+#rsecifeatures, #racefeatures, #incomefeatures {
+  width: 350px;
+  margin-right: 20px;
+  right: 0;
+  height: 120px;
+}
+
+
+#toggle {
+  padding: 10px;
+  height: 100px;
+  margin-left: 20px;
+  width: 120px;
+}
+
+
+#toggle a {
+  font-size: 16px;
+  color: #1a77ba;
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  text-align: center;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+#toggle a:first-child {
+  margin-top: -10px;
+}
+
+#toggle a:last-child {
+  margin-bottom: -10px;
+  border: none;
+}
+
+#toggle a:hover {
+  background-color: #f8f8f8;
+  color: #404040;
+}
+
+#toggle a.active {
+  background-color: #594c3f;
+  color: #ffffff;
+}
+
+#toggle a.active:hover {
+  background: #826d57
+}
+
+
+#rsecilegend, #racelegend, #incomelegend, #povertylegend {
+  text-align: left;
+  font-size: 14px;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  line-height: 18px;
+  margin-bottom: 45px;
+  margin-right: 20px;
+  right: 0;
+}
+
+#rsecilegend {
+  height: 130px;
+  width: 170px;
+}
+#racelegend {
+  padding-left: 12px;
+  width: 160px;
+}
+
+#povertylegend {
+  display:none;
+  width: 205px;
+  padding-left: 14px;
+}
+#incomelegend {
+width: 180px;
+padding-left: 5px;
+}
+
+
+#racelegend, #incomelegend, #povertylegend {
+  height: 150px;
+}
+
+.legend-key  {
+  display: inline-block;
+  border-radius: 20%;
+  width: 14px;
+  height: 14px;
+  margin-right: 5px;
+}
+
+#racebar, #incomebar {
+  display: absolute;
+  z-index: 999;
+  margin-right: 135px;
+  margin-bottom: 65px;
+  height:120px;
+  width: 28px;
+  border-radius: 35px;
+  right: 0;
+}
+
+
+#racebar {
+  background: linear-gradient(to bottom, #feeac8 10.9%, #dd720e 40.65%, #774304 92.2%);
+}
+
+#incomebar {
+  background: linear-gradient(to bottom, #fffffa 6.2%, #e8fdbf 26.3%, #a6c468 46.4%, #5e7b23 72.8%, #374e09 99.1%);
+}
+
+
+.income-container {
+   position: relative;
+   height:230px;
+   width:300px;
+   margin-top: 10px;
+   margin-left: 25px;
+}
+
+.race-container {
+   position: relative;
+   height:200px;
+   width:230px;
+   margin-left: 63px;
+}
+
+::-webkit-scrollbar {
+    width: 1em;
+    height: 1em;
+}
+
+::-webkit-scrollbar-track {
+    background: #cbe0ff;
+    border-radius: 0.625em;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 0.625em;
+    background: #71a8f9;
+
+}
+#accordion {
+	list-style: none;
+	width: 170px;
+}
+#accordion li{
+	cursor: pointer;
+  padding: 15px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #2196F3;
+  display: block;
+  text-align: center;
+  margin-left: -40px;
+  margin-right: -40px;
+}
+#accordion li:first-child, #accordion ul:first-child {
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
+#accordion li:last-child, #accordion ul:last-child {
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
+#accordion ul *:not(:first-child):not(:last-child) {
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+#accordion ul {
+  margin-left: -40px;
+  margin-right: -40px;
+	display: none;
+  padding: 15px;
+}
+
+#accordion ul li{
+	font-weight: normal;
+	cursor: auto;
+	background-color: #fff;
+
+}
+#accordion a {
+	text-decoration: none;
+}
+#accordion ul li a:hover {
+	text-decoration: underline;
+}
+
+.sidebar {
+  width: 250px;
+  position: sticky;
+  top: 30px;
+  left: 40px;
+  background: #eee;
+  overflow-x: hidden;
+  padding: 8px 0;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.sidebar a {
+  padding: 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #2196F3;
+  display: block;
+}
+
+.sidebar a:hover {
+  color: #064579;
+}
+
+footer {
+  margin-top: 50px;
+}
